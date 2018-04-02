@@ -1,0 +1,141 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pack.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/pack": {
+      "post": {
+        "operationId": "Pack",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/mainPackResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mainPackRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Packer"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "mainBox": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "length": {
+          "type": "number",
+          "format": "double"
+        },
+        "width": {
+          "type": "number",
+          "format": "double"
+        },
+        "height": {
+          "type": "number",
+          "format": "double"
+        },
+        "maxWeight": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "mainItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "length": {
+          "type": "number",
+          "format": "double"
+        },
+        "width": {
+          "type": "number",
+          "format": "double"
+        },
+        "height": {
+          "type": "number",
+          "format": "double"
+        },
+        "qty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "weight": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "mainPackRequest": {
+      "type": "object",
+      "properties": {
+        "boxes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mainBox"
+          }
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mainItem"
+          }
+        }
+      }
+    },
+    "mainPackResponse": {
+      "type": "object",
+      "properties": {
+        "boxes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mainPackedBox"
+          }
+        }
+      }
+    },
+    "mainPackedBox": {
+      "type": "object",
+      "properties": {
+        "box": {
+          "$ref": "#/definitions/mainBox"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mainItem"
+          }
+        }
+      }
+    }
+  }
+}

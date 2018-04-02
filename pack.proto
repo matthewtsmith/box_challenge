@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package main;
+
+option java_package = "com.apptreesoftware.packer";
+option csharp_namespace = "com.apptreesoftware.Packer";
+
+service Packer {
+    rpc Pack (PackRequest) returns (PackResponse) {
+        option (google.api.http) = {
+			post: "/v1/pack"
+			body: "*"
+		};
+    }
+}
+
+message Box {
+    string id = 1;
+    double length = 2;
+    double width = 3;
+    double height = 4;
+    double maxWeight = 5;
+}
+
+
+message Item {
+    string id = 1;
+    double length = 2;
+    double width = 3;
+    double height = 4;
+    int32 qty = 5;
+    double weight = 6;
+
+}
+
+message PackRequest {
+    repeated Box boxes = 1;
+    repeated Item items = 2;
+}
+
+message PackResponse {
+    repeated PackedBox boxes = 1;
+}
+
+message PackedBox {
+    Box box = 1;
+    repeated Item items = 2;
+}
